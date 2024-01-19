@@ -8,7 +8,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <body className="flex flex-col items-center h-screen p-5 bg-gradient-to-t from-blue-start to-blue-end">
         {children}
       </body>
     </html>

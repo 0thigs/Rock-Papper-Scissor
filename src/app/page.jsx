@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <section className="flex flex-col items-center justify-center gap-56">
-      <header className="flex justify-between p-3 border-2 border-gray-600 rounded-lg w-96 lg:w-[500px]">
+      <header className="flex justify-between p-3 border-2 border-gray-600 rounded-lg w-96 min-w-72 lg:w-[500px]">
         <div className="flex flex-col items-center justify-center ">
           <Image
             src={Logo}
@@ -31,7 +31,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="relative border-2">
+      <main className="relative">
         <Image src={Triangle} width={200} alt="Pedra Papel ou Tesoura" />
 
         <Circle
@@ -54,8 +54,8 @@ export default function Home() {
           img={Rock}
           size={size}
           color={"#DA425F"}
-          top={"75%"}
-          left={"25%"}
+          top={"65%"}
+          left={"24%"}
         />
       </main>
     </section>

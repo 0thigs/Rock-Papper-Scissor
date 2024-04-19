@@ -58,8 +58,12 @@ export default function Home() {
           left={"24%"}
         />
       </main>
+
+      <footer>
+        
+      </footer>
     </section>
   );
 }
 
-//BUG: CONSERTAR ERRO DO CIRCLE: PROPS NAO FUNCIONANDO CORRETAMENTE!
+//CONTINUAR: CRIAR O RULES MODAL

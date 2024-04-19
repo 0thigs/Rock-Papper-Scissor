@@ -9,9 +9,9 @@ export default function Circle({ img, size, top, left, color }) {
   const onMouseEnter = () => setIsHover(true);
   const onMouseLeave = () => setIsHover(false);
 
- const circleStyle = {
+  const circleStyle = {
     position: "absolute",
-    top: top, 
+    top: top,
     left: left,
     border: `13px solid ${color}`,
     width: `${size}px`,
@@ -25,14 +25,15 @@ export default function Circle({ img, size, top, left, color }) {
     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
     transform: isHover ? "scale(1)" : "scale(0.98)",
     transition: 'transform  0.3s ease',
- };
+  };
 
- return (
+  return (
+    // biome-ignore lint/a11y/useButtonType: <explanation>
     <button style={circleStyle} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <Image 
+      <Image
         width={35}
         src={img}
       />
     </button>
- );
+  );
 }

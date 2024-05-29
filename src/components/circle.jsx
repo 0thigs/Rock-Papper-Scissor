@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { useState } from 'react'
 
-export default function Circle({ img, size, top, left, color }) {
+export default function Circle({ img, size, top, left, color, key, onKeyReceived }) {
 
   const [isHover, setIsHover] = useState(false);
   const onMouseEnter = () => setIsHover(true);
@@ -27,9 +27,13 @@ export default function Circle({ img, size, top, left, color }) {
     transition: 'transform  0.3s ease',
   };
 
+  const handleClick = () => {
+    onKeyReceived(key);
+  }
+
   return (
     // biome-ignore lint/a11y/useButtonType: <explanation>
-    <button style={circleStyle} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <button style={circleStyle} key={key} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={handleClick}>
       <Image
         width={35}
         src={img}

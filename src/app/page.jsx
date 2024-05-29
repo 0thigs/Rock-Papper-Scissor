@@ -1,3 +1,5 @@
+"use client"
+import { useState } from "react";
 import Image from "next/image";
 import Circle from "@/components/circle";
 import Logo from "../../public/images/logo.svg";
@@ -8,12 +10,32 @@ import Rock from "../../public/images/icon-rock.svg";
 import { getRandomInt } from "@/scripts/getRandomInt";
 
 export default function Home() {
+  const [componentKey, setComponentKey] = useState('');
+
   const size = 110
 
-  const random = getRandomInt(3)
+  const choices = [
+    'rock',
+    'papper',
+    'scissor'
+  ]
+
+
+  function getCpuChoice() {
+    const random = getRandomInt(3)
+    const cpu_choice = choices[random]
+    return cpu_choice
+  }
+  const cpu_choice = getCpuChoice()
+
+  function getKey(key) {
+    setComponentKey(key);
+    console.log(Circle)
+  }
 
   return (
-    <section className="flex flex-col items-center justify-center gap-56">
+
+    < section className="flex flex-col items-center justify-center gap-56" >
       <header className="flex justify-between p-3 border-2 border-gray-600 rounded-lg w-96 min-w-72 lg:w-[500px]">
         <div className="flex flex-col items-center justify-center ">
           <Image
@@ -42,6 +64,8 @@ export default function Home() {
           color={"#4A67F5"}
           top={"-25%"}
           left={"-25%"}
+          key={"papper"}
+          onKeyReceived={getKey}
         />
 
         <Circle
@@ -50,6 +74,8 @@ export default function Home() {
           color={"#ECA822"}
           top={"-25%"}
           left={"75%"}
+          key={"scissor"}
+          onKeyReceived={getKey}
         />
 
         <Circle
@@ -58,13 +84,15 @@ export default function Home() {
           color={"#DA425F"}
           top={"65%"}
           left={"24%"}
+          key={"rock"}
+          onKeyReceived={getKey}
         />
       </main>
 
       <footer>
 
       </footer>
-    </section>
+    </ section>
   );
 }
 

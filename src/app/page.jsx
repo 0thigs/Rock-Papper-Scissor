@@ -5,10 +5,12 @@ import Triangle from "../../public/images/bg-triangle.svg";
 import Papper from "../../public/images/icon-paper.svg";
 import Scissor from "../../public/images/icon-scissors.svg";
 import Rock from "../../public/images/icon-rock.svg";
+import { getRandomInt } from "@/scripts/getRandomInt";
 
 export default function Home() {
-
   const size = 110
+
+  const random = getRandomInt(3)
 
   return (
     <section className="flex flex-col items-center justify-center gap-56">
@@ -60,7 +62,7 @@ export default function Home() {
       </main>
 
       <footer>
-        
+
       </footer>
     </section>
   );

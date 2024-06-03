@@ -25,8 +25,6 @@ export default function Home() {
     return cpu_choice
   }
 
-  console.log(getCpuChoice())
-
   function getUserChoice(choice) {
     setUserChoice(choice);
   }

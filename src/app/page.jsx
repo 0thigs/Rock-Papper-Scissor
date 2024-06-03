@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Circle from "@/components/circle";
 import Logo from "../../public/images/logo.svg";
@@ -11,7 +11,6 @@ import { getRandomInt } from "@/scripts/getRandomInt";
 
 export default function Home() {
   const [userChoice, setUserChoice] = useState('');
-
   const size = 110
 
   const choices = [
@@ -20,18 +19,16 @@ export default function Home() {
     'scissor'
   ]
 
-
   function getCpuChoice() {
     const random = getRandomInt(3)
     const cpu_choice = choices[random]
     return cpu_choice
   }
 
-  const cpu_choice = getCpuChoice()
+  console.log(getCpuChoice())
 
-  function getValue(value) {
-    setUserChoice(value);
-    console.log(value)
+  function getUserChoice(choice) {
+    setUserChoice(choice);
   }
 
   return (
@@ -66,7 +63,7 @@ export default function Home() {
           top={"-25%"}
           left={"-25%"}
           value={"papper"}
-          getValue={getValue}
+          getUserChoice={getUserChoice}
         />
 
         <Circle
@@ -76,7 +73,7 @@ export default function Home() {
           top={"-25%"}
           left={"75%"}
           value={"scissor"}
-          getValue={getValue}
+          getUserChoice={getUserChoice}
         />
 
         <Circle
@@ -86,7 +83,7 @@ export default function Home() {
           top={"65%"}
           left={"24%"}
           value={"rock"}
-          getValue={getValue}
+          getUserChoice={getUserChoice}
         />
       </main>
 

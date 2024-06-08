@@ -27,6 +27,7 @@ export default function Home() {
 
   function getUserChoice(choice) {
     setUserChoice(choice);
+    console.log(choice)
   }
 
   return (

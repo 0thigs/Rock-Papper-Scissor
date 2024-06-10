@@ -10,8 +10,8 @@ import Rock from "../../public/images/icon-rock.svg";
 import { getRandomInt } from "@/scripts/getRandomInt";
 
 export default function Home() {
-  const [userChoice, setUserChoice] = useState('');
   const size = 110
+  const [userChoice, setUserChoice] = useState('');
 
   const choices = [
     'rock',
@@ -21,13 +21,36 @@ export default function Home() {
 
   function getCpuChoice() {
     const random = getRandomInt(3)
-    const cpu_choice = choices[random]
-    return cpu_choice
+    return choices[random]
   }
 
-  function getUserChoice(choice) {
-    setUserChoice(choice);
-    console.log(choice)
+  function getUserChoice(e) {
+    setUserChoice(e.target.value)
+    console.log(e)
+  }
+
+  function MakeMove() {
+    if (userChoice === '') return
+
+    const possibleMoves = [
+      {
+        name: 'rock',
+        defeats: 'scissor'
+      },
+      {
+        name: 'papper',
+        defeats: 'rock'
+      },
+      {
+        name: 'scissor',
+        defeats: 'papper'
+      }
+    ]
+
+    const userChoiceO = getUserChoice()
+    const cpuChoice = getCpuChoice()
+
+    console.log(userChoiceO, cpuChoice)
   }
 
   return (
@@ -55,41 +78,41 @@ export default function Home() {
       <main className="relative">
         <Image src={Triangle} width={200} alt="Pedra Papel ou Tesoura" />
 
-        <Circle
-          img={Papper}
-          size={size}
-          color={"#4A67F5"}
-          top={"-25%"}
-          left={"-25%"}
-          value={"papper"}
-          getUserChoice={getUserChoice}
-        />
+        <button value={"papper"} onClick={getUserChoice}>
+          <Circle
+            img={Papper}
+            size={size}
+            color={"#4A67F5"}
+            top={"-25%"}
+            left={"-25%"}
+          />
+        </button>
 
-        <Circle
-          img={Scissor}
-          size={size}
-          color={"#ECA822"}
-          top={"-25%"}
-          left={"75%"}
-          value={"scissor"}
-          getUserChoice={getUserChoice}
-        />
+        <button value={"scissor"} onClick={getUserChoice}>
+          <Circle
+            img={Scissor}
+            size={size}
+            color={"#ECA822"}
+            top={"-25%"}
+            left={"75%"}
+          />
+        </button>
 
-        <Circle
-          img={Rock}
-          size={size}
-          color={"#DA425F"}
-          top={"65%"}
-          left={"24%"}
-          value={"rock"}
-          getUserChoice={getUserChoice}
-        />
+        <button value={"rock"} onClick={getUserChoice}>
+          <Circle
+            img={Rock}
+            size={size}
+            color={"#DA425F"}
+            top={"65%"}
+            left={"24%"}
+          />
+        </button>
       </main>
 
       <footer>
 
       </footer>
-    </ section>
+    </ section >
   );
 }
 

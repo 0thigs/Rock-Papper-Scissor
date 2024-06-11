@@ -24,9 +24,9 @@ export default function Home() {
     return choices[random]
   }
 
-  function getUserChoice(e) {
-    setUserChoice(e.target.value)
-    console.log(e)
+  function getUserChoice(choice) {
+    setUserChoice(choice)
+    console.log(userChoice)
   }
 
   function MakeMove() {
@@ -78,7 +78,7 @@ export default function Home() {
       <main className="relative">
         <Image src={Triangle} width={200} alt="Pedra Papel ou Tesoura" />
 
-        <button value={"papper"} onClick={getUserChoice}>
+        <button value={"papper"} onClick={() => getUserChoice("papper")}>
           <Circle
             img={Papper}
             size={size}
@@ -88,7 +88,7 @@ export default function Home() {
           />
         </button>
 
-        <button value={"scissor"} onClick={getUserChoice}>
+        <button value={"scissor"} onClick={() => getUserChoice("scissor")}>
           <Circle
             img={Scissor}
             size={size}
@@ -98,7 +98,7 @@ export default function Home() {
           />
         </button>
 
-        <button value={"rock"} onClick={getUserChoice}>
+        <button value={"rock"} onClick={() => getUserChoice("rock")}>
           <Circle
             img={Rock}
             size={size}

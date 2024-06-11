@@ -11,7 +11,7 @@ import { getRandomInt } from "@/scripts/getRandomInt";
 
 export default function Home() {
   const size = 110
-  const [userChoice, setUserChoice] = useState('');
+  const [winner, setWinner] = useState("")
 
   const choices = [
     'rock',
@@ -24,33 +24,42 @@ export default function Home() {
     return choices[random]
   }
 
-  function getUserChoice(choice) {
-    setUserChoice(choice)
-    console.log(userChoice)
-  }
+  function MakeMove(choice) {
+    const userChoice = choice
+    const cpuChoice = getCpuChoice()
 
-  function MakeMove() {
-    if (userChoice === '') return
 
     const possibleMoves = [
       {
         name: 'rock',
-        defeats: 'scissor'
+        wins: 'scissor'
       },
       {
         name: 'papper',
-        defeats: 'rock'
+        wins: 'rock'
       },
       {
         name: 'scissor',
-        defeats: 'papper'
+        wins: 'papper'
       }
     ]
 
-    const userChoiceO = getUserChoice()
-    const cpuChoice = getCpuChoice()
+    const UserWinsIt = possibleMoves.find(move => move.name == userChoice).wins
 
-    console.log(userChoiceO, cpuChoice)
+    if (userChoice == cpuChoice) {
+      setWinner("empate")
+    }
+    else if (UserWinsIt == cpuChoice) {
+      setWinner("user")
+    }
+    else {
+      setWinner("cpu")
+    }
+
+    console.log("User: ", userChoice)
+    console.log("Cpu: ", cpuChoice)
+    console.log("User Wins It: ", UserWinsIt)
+
   }
 
   return (
@@ -78,7 +87,7 @@ export default function Home() {
       <main className="relative">
         <Image src={Triangle} width={200} alt="Pedra Papel ou Tesoura" />
 
-        <button value={"papper"} onClick={() => getUserChoice("papper")}>
+        <button value={"papper"} onClick={() => MakeMove("papper")}>
           <Circle
             img={Papper}
             size={size}
@@ -88,7 +97,7 @@ export default function Home() {
           />
         </button>
 
-        <button value={"scissor"} onClick={() => getUserChoice("scissor")}>
+        <button value={"scissor"} onClick={() => MakeMove("scissor")}>
           <Circle
             img={Scissor}
             size={size}
@@ -98,7 +107,7 @@ export default function Home() {
           />
         </button>
 
-        <button value={"rock"} onClick={() => getUserChoice("rock")}>
+        <button value={"rock"} onClick={() => MakeMove("rock")}>
           <Circle
             img={Rock}
             size={size}
@@ -109,6 +118,9 @@ export default function Home() {
         </button>
       </main>
 
+      <div>
+        {winner}
+      </div>
       <footer>
 
       </footer>

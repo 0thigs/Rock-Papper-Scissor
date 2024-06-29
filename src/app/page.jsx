@@ -59,6 +59,7 @@ export default function Home() {
     console.log("User: ", userChoice)
     console.log("Cpu: ", cpuChoice)
     console.log("User Wins It: ", UserWinsIt)
+    Console.log("Finish")
   }
 
   return (

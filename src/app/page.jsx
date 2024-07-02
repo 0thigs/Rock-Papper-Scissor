@@ -28,8 +28,20 @@ export default function Home() {
     const userChoice = choice
     const cpuChoice = getCpuChoice()
 
-
-
+    const possibleMoves = [
+      {
+        name: 'rock',
+        wins: 'scissor'
+      },
+      {
+        name: 'papper',
+        wins: 'rock'
+      },
+      {
+        name: 'scissor',
+        wins: 'papper'
+      }
+    ]
 
     const UserWinsIt = possibleMoves.find(move => move.name == userChoice).wins
 

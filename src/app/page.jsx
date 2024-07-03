@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Circle from "@/components/circle";
+import Footer from "@/components/footer";
 import Logo from "../../public/images/logo.svg";
 import Triangle from "../../public/images/bg-triangle.svg";
 import Papper from "../../public/images/icon-paper.svg";
@@ -115,13 +116,7 @@ export default function Home() {
           />
         </button>
       </main>
-
-      <div>
-        {winner}
-      </div>
-      <footer>
-
-      </footer>
+      <Footer />
     </ section >
   );
 }

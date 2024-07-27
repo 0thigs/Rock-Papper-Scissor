@@ -120,5 +120,3 @@ export default function Home() {
     </ section >
   );
 }
-
-//CONTINUAR: CRIAR O RULES MODAL

@@ -5,7 +5,7 @@ export default function Footer() {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <footer>
+        <footer className='fixed bottom-40'>
             <button onClick={() => setIsOpen(!isOpen)} className="py-1 font-light text-white uppercase transition-all border border-white rounded-lg hover:scale-105 px-7">
                 Rules
             </button>

@@ -1,122 +1,143 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Circle from "@/components/circle";
 import Footer from "@/components/footer";
-import Logo from "../../public/images/logo.svg";
 import Triangle from "../../public/images/bg-triangle.svg";
-import Papper from "../../public/images/icon-paper.svg";
-import Scissor from "../../public/images/icon-scissors.svg";
-import Rock from "../../public/images/icon-rock.svg";
+import Header from "@/components/header";
 import { getRandomInt } from "@/scripts/getRandomInt";
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
 
 export default function Home() {
-  const size = 110
-  const [winner, setWinner] = useState("")
+  const [winner, setWinner] = useState("");
+  const [userChoice, setUserChoice] = useState("");
+  const [cpuChoice, setCpuChoice] = useState("");
+  const [wins, setWins] = useState(0);
+  const [losses, setLosses] = useState(0);
+  const [draws, setDraws] = useState(0);
+  const [isChoosing, setIsChoosing] = useState(true);
+  const { width, height } = useWindowSize()
 
-  const choices = [
-    'rock',
-    'papper',
-    'scissor'
-  ]
+  const choices = ["rock", "papper", "scissor"];
 
   function getCpuChoice() {
-    const random = getRandomInt(3)
-    return choices[random]
+    const random = getRandomInt(3);
+    return choices[random];
   }
 
   function MakeMove(choice) {
-    const userChoice = choice
-    const cpuChoice = getCpuChoice()
+    const userChoice = choice;
+    const cpuChoice = getCpuChoice();
 
     const possibleMoves = [
       {
-        name: 'rock',
-        wins: 'scissor'
+        name: "rock",
+        wins: "scissor",
       },
       {
-        name: 'papper',
-        wins: 'rock'
+        name: "papper",
+        wins: "rock",
       },
       {
-        name: 'scissor',
-        wins: 'papper'
-      }
-    ]
+        name: "scissor",
+        wins: "papper",
+      },
+    ];
 
-    const UserWinsIt = possibleMoves.find(move => move.name == userChoice).wins
+    const UserWinsIt = possibleMoves.find((move) => move.name === userChoice).wins;
 
-    if (userChoice == cpuChoice) {
-      setWinner("empate")
-    }
-    else if (UserWinsIt == cpuChoice) {
-      setWinner("user")
-    }
-    else {
-      setWinner("cpu")
+    if (userChoice === cpuChoice) {
+      setWinner("empate");
+      setDraws(draws + 1);
+    } else if (UserWinsIt === cpuChoice) {
+      setWinner("user");
+      setWins(wins + 1)
+    } else {
+      setWinner("cpu");
+      setLosses(losses + 1)
     }
 
-    console.log("User: ", userChoice)
-    console.log("Cpu: ", cpuChoice)
-    console.log("User Wins It: ", UserWinsIt)
+    setUserChoice(userChoice);
+    setCpuChoice(cpuChoice);
+    setIsChoosing(false);
   }
 
+  useEffect(() => {
+    console.log("User Choice: ", userChoice);
+    console.log("Cpu Choice: ", cpuChoice);
+    console.log("Winner: ", winner);
+  }, [userChoice, cpuChoice, winner]);
+
   return (
+    <section className="flex flex-col items-center justify-center gap-56">
+      <Header wins={wins} losses={losses} draws={draws} />
+      {isChoosing ? (
+        // CHOICE STEP
+        <main className="relative">
+          <Image src={Triangle} width={200} alt="Pedra Papel ou Tesoura" className="select-none" />
 
-    < section className="flex flex-col items-center justify-center gap-56" >
-      <header className="flex justify-between p-3 border-2 border-gray-600 rounded-lg w-96 min-w-72 lg:w-[500px]">
-        <div className="flex flex-col items-center justify-center ">
-          <Image
-            src={Logo}
-            width={80}
-            alt="Pedra Papel ou Tesoura"
-            className="lg:w-24"
-          />
+          <button value={"papper"} onClick={() => MakeMove("papper")}>
+            <Circle
+              name={"papper"}
+              classname={"absolute top-[-25%] left-[-25%]"}
+            />
+          </button>
+
+          <button value={"scissor"} onClick={() => MakeMove("scissor")}>
+            <Circle
+              name={"scissor"}
+              classname={"absolute top-[-25%] left-[75%]"}
+            />
+          </button>
+
+          <button value={"rock"} onClick={() => MakeMove("rock")}>
+            <Circle
+              name={"rock"}
+              classname={"absolute top-[65%] left-[24%]"}
+            />
+          </button>
+        </main>
+      ) : (
+        // RESULT STEP
+        <div className="flex items-center justify-center w-full gap-40 text-white h-7">
+          {winner === "user" && <Confetti width={width} height={height} />}
+          <div className={`animate-fade-in flex flex-col items-center justify-center gap-5 p-10 ${winner === "user" && "bg-gradient-to-t from-[#B38900] to-[#c6a434] rounded-md shadow-md"}`}>
+            <h1 className="text-4xl font-bold text-center">
+              YOU
+            </h1>
+            <Circle
+              name={userChoice}
+              classname={"top-[65%] animate-fade-in"}
+            />
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="font-semibold uppercase text-[50px]">
+              {winner === "empate" && "DRAW"}
+              {winner === "cpu" && "CPU WIN"}
+              {winner === "user" && "YOU WIN"}
+            </h1>
+            <button
+              onClick={() => setIsChoosing(true)}
+              className="px-16 py-2 mt-2 text-[#33374A] font-bold transition duration-300 ease-in-out bg-[#E2E8EF] rounded-lg shadow-md hover:bg-[#99A8BC]"
+            >
+              Play Again
+            </button>
+
+
+          </div>
+          <div className={`animate-fade-in flex flex-col items-center justify-center gap-5 p-10 ${winner === "cpu" && "bg-gradient-to-t from-[#B38900] to-[#c6a434] rounded-md shadow-md"}`}>
+            <h1 className="text-4xl font-bold text-center">
+              CPU
+            </h1>
+            <Circle
+              name={cpuChoice}
+              classname={"top-[65%] animate-fade-in"}
+            />
+          </div>
         </div>
-        <div className="flex flex-col items-center justify-center h-full px-6 py-2 text-center rounded-lg shadow-lg bg-gradient-to-t from-slate-400 to-slate-100">
-          <h1 className="text-xs font-semibold tracking-wider font-barlow text-blue-start">
-            SCORE
-          </h1>
-          <p className="text-5xl font-extrabold tracking-[-5px] font-barlow text-gray-700">
-            0
-          </p>
-        </div>
-      </header>
-
-      <main className="relative">
-        <Image src={Triangle} width={200} alt="Pedra Papel ou Tesoura" />
-
-        <button value={"papper"} onClick={() => MakeMove("papper")}>
-          <Circle
-            img={Papper}
-            size={size}
-            color={"#4A67F5"}
-            top={"-25%"}
-            left={"-25%"}
-          />
-        </button>
-
-        <button value={"scissor"} onClick={() => MakeMove("scissor")}>
-          <Circle
-            img={Scissor}
-            size={size}
-            color={"#ECA822"}
-            top={"-25%"}
-            left={"75%"}
-          />
-        </button>
-
-        <button value={"rock"} onClick={() => MakeMove("rock")}>
-          <Circle
-            img={Rock}
-            size={size}
-            color={"#DA425F"}
-            top={"65%"}
-            left={"24%"}
-          />
-        </button>
-      </main>
+      )}
       <Footer />
-    </ section >
+    </section>
   );
 }

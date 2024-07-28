@@ -8,6 +8,7 @@ import Header from "@/components/header";
 import { getRandomInt } from "@/scripts/getRandomInt";
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
+import { ArrowCounterClockwise } from "@phosphor-icons/react";
 
 export default function Home() {
   const [winner, setWinner] = useState("");
@@ -24,6 +25,13 @@ export default function Home() {
   function getCpuChoice() {
     const random = getRandomInt(3);
     return choices[random];
+  }
+
+  function resetGame() {
+    setWins(0)
+    setLosses(0)
+    setDraws(0)
+    setIsChoosing(true);
   }
 
   function MakeMove(choice) {
@@ -123,7 +131,9 @@ export default function Home() {
             >
               Play Again
             </button>
-
+            <button onClick={() => resetGame()} className="mt-6 text-sm font-semibold uppercase transition-all duration-100 text-zinc-300 hover:animate-spin">
+              <ArrowCounterClockwise size={20} color="white" weight="bold" />
+            </button>
 
           </div>
           <div className={`animate-fade-in flex flex-col items-center justify-center gap-5 p-10 ${winner === "cpu" && "bg-gradient-to-t from-[#B38900] to-[#c6a434] rounded-md shadow-md"}`}>
